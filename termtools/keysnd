@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ! -n "$1" ]; then
+	printf 'usage: ./keysnd <BBS FIFO> | <SSH command> \n' 1>&2
+	exit 1
+fi
+
+FIFO="$1"
+clean_up(){
+	rm -f $FIFO
+}
+
+mkfifo $FIFO
+tail -f $FIFO &
+trap 'clean_up' 1 2 3 6 9 15
+while true
+do
+	sleep 600
+	printf '\014'
+done
+
