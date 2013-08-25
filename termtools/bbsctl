@@ -1,0 +1,62 @@
+#!/bin/bash
+
+readcmd(){
+	printf '>'
+	read -r "$@"
+}
+
+loop(){
+	local TIMES="$1"
+	shift
+	for i in $(seq 1 $TIMES)
+	do
+		eval "$@"
+	done
+}
+
+pgup(){
+	printf '\033[5~'
+}
+
+pgdn(){
+	printf '\033[6~'
+}
+
+switch(){
+	printf 's%s\n' "$1"
+}
+
+view(){
+	printf 's\n%s\n' "$1"
+}
+
+redraw(){
+	printf '\014'
+}
+
+p(){
+	printf 'k'
+}
+
+n(){
+	printf 'j'
+}
+
+last(){
+	printf '$'
+}
+
+enter(){
+	printf '\n'
+}
+
+reenter(){
+	printf 'q\n\n'
+}
+
+while readcmd CMD
+do
+#echo $CMD
+	eval $CMD > "$1"
+done
+
