@@ -6,12 +6,14 @@ if [ ! -n "$1" ]; then
 fi
 
 FIFO="$1"
-clean_up(){
-	rm -f $FIFO
-}
-
 mkfifo $FIFO
 tail -f $FIFO &
+BGPID=$!
+clean_up(){
+	rm -f $FIFO
+	kill $BGPID
+}
+
 trap 'clean_up' 1 2 3 6 9 15
 while true
 do
