@@ -1,10 +1,5 @@
 #!/bin/bash
 
-readcmd(){
-	printf '>'
-	read -r "$@"
-}
-
 loop(){
 	local TIMES="$1"
 	shift
@@ -13,6 +8,7 @@ loop(){
 		eval "$@"
 	done
 }
+export -f loop
 
 # keypresses
 pgup(){
@@ -27,7 +23,9 @@ pgdn(){
 keyr(){
 	printf '\033[C'
 }
+export -f pgup pgdn keyr
 
+# BBS functions
 switch(){
 	printf 's%s\n' "$1"
 }
@@ -42,6 +40,10 @@ p(){
 
 n(){
 	printf 'j'
+}
+
+q(){
+	printf 'q'
 }
 
 last(){
@@ -60,9 +62,11 @@ redraw(){
 	printf '\014'
 }
 
-# functions on BBS
 post(){
 	printf '\020'
+	if [ -n "$1" ]; then
+		echo "$1"
+	fi
 }
 
 save(){
@@ -72,10 +76,7 @@ save(){
 bye(){
 	printf '!\n\n'
 }
+export -f switch view p n q last enter reenter redraw post save bye
 
-while readcmd CMD
-do
-#echo $CMD
-	eval $CMD > "$1"
-done
+/usr/bin/env PS1='(bbs)' bash --norc > $1
 

@@ -7,11 +7,20 @@ fi
 
 FIFO="$1"
 mkfifo $FIFO
-tail -f $FIFO &
-BGPID=$!
+# Thanks to Invader@newsmth to provide this method
+sleep 10000000 > $FIFO &
+# FIXME: how to use sth like cat that can run forever?
+#cat > $FIFO &
+WCATPID=$!
+cat $FIFO &
+CATPID=$!
+echo "write cat pid:$WCATPID real cat pid:$CATPID" 1>&2
+
 clean_up(){
 	rm -f $FIFO
-	kill $BGPID
+	kill $WCATPID
+	kill $CATPID
+	exit
 }
 
 trap 'clean_up' 1 2 3 6 9 15
