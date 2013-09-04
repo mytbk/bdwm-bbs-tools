@@ -8,8 +8,9 @@ fi
 FIFO="$1"
 mkfifo $FIFO
 # Thanks to Invader@newsmth to provide this method
-sleep 10000000 > $FIFO &
+sleep 1000d > $FIFO &
 # FIXME: how to use sth like cat that can run forever?
+# use set -m will solve, but leads to other problems
 #cat > $FIFO &
 WCATPID=$!
 cat $FIFO &
