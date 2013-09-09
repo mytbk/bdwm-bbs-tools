@@ -10,7 +10,7 @@ loop(){
 }
 export -f loop
 
-# keypresses
+# direction keys
 pgup(){
 	printf '\033[5~'
 }
@@ -19,11 +19,19 @@ pgdn(){
 	printf '\033[6~'
 }
 
-# the right key
 keyr(){
 	printf '\033[C'
 }
-export -f pgup pgdn keyr
+keyl(){
+	printf '\033[D'
+}
+keyup(){
+	printf '\033[A'
+}
+keydown(){
+	printf '\033[B'
+}
+export -f pgup pgdn keyl keyr keyup keydown
 
 # BBS functions
 switch(){
@@ -77,6 +85,33 @@ bye(){
 	printf '!\n\n'
 }
 export -f switch view p n q last enter reenter redraw post save bye
+
+# for board managers
+merge(){
+	printf 'b1\n7\ny\n\n\n'
+}
+
+subdel(){
+	printf 'b1\n1\ny\n\n'
+}
+
+ban(){
+	printf '\004'
+}
+export -f merge subdel ban
+
+# ctrl-a to ctrl-z
+i=1
+for alpha in {a..z}
+do
+	funcname=c${alpha}
+	octcode=$(printf '%03o' $i)
+	eval "${funcname}(){
+		printf '\\${octcode}'
+	}"
+	i=$(($i+1))
+	export -f ${funcname}
+done
 
 /usr/bin/env PS1='(bbs)' bash --norc > $1
 
