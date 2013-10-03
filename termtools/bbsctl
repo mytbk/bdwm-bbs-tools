@@ -77,6 +77,14 @@ post(){
 	fi
 }
 
+clear(){
+	printf '\023\033m1\n\024\033m2\n\033d'
+}
+
+write(){
+	iconv -c -t gbk
+}
+
 save(){
 	printf '\027'
 }
@@ -84,7 +92,8 @@ save(){
 bye(){
 	printf '!\n\n'
 }
-export -f switch view p n q last enter reenter redraw post save bye
+export -f switch view p n q last enter reenter bye 
+export -f redraw post clear write save
 
 # for board managers
 merge(){
