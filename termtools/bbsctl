@@ -86,7 +86,11 @@ write(){
 }
 
 save(){
-	printf '\027'
+	printf 'save?(y/n) ' 1>&2
+	read ans
+	if [ "$ans" = "y" ]; then
+		printf '\027l\n'
+	fi
 }
 
 bye(){
