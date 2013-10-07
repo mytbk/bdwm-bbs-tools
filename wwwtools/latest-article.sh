@@ -22,7 +22,7 @@ w3m -dump http://www.bdwm.net/bbs/bbsdoc.php?board=${BOARDNAME}|grep ^[0-9] \
         > ${CONTENTFILE}.1
 if [[ ! -f "${CONTENTFILE}" ]]; then
 	cat ${CONTENTFILE}.1
-        msg "Generating cachefor board ${BOARDNAME}." ${GREEN}
+        msg "Generating cache for board ${BOARDNAME}." ${GREEN}
 	EXITCODE=0
 elif diff -u ${CONTENTFILE} ${CONTENTFILE}.1 > ${CACHEDIR}/diff ; then
         msg "Board ${BOARDNAME} unchanged." ${GREEN}
