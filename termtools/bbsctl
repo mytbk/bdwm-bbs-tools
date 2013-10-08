@@ -73,7 +73,7 @@ redraw(){
 post(){
 	printf '\020'
 	if [ -n "$1" ]; then
-		echo "$1"
+		iconv -c -t gbk <<< "$1"
 	fi
 }
 
