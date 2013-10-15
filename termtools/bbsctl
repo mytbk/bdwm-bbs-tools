@@ -10,6 +10,29 @@ loop(){
 }
 export -f loop
 
+ssh_ver(){
+    ssh -V 2>&1|cut -d',' -f1
+}
+export -f ssh_ver
+
+os_rel(){
+    source /etc/os-release
+    local ESC
+    if [ -n "$1" ]; then
+        ESC='\033\033'
+    else
+        ESC='\033'
+    fi
+    printf "${ESC}[${ANSI_COLOR}m${PRETTY_NAME}${ESC}[0m"
+}
+export -f os_rel
+
+tail_qmd(){
+    printf '\n--\n'
+    printf '%s (%s)\n' "$(ssh_ver)" "$(os_rel 1)"
+}
+export -f tail_qmd
+
 # direction keys
 pgup(){
 	printf '\033[5~'
