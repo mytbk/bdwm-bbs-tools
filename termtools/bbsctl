@@ -116,11 +116,16 @@ save(){
 	fi
 }
 
+tsave(){
+    tail_qmd
+    printf '\027l\n'
+}
+
 bye(){
 	printf '!\n\n'
 }
 export -f switch view p n q last enter reenter bye 
-export -f redraw post clear write save
+export -f redraw post clear write save tsave
 
 # for board managers
 merge(){
