@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
   raw();
   noecho();
   keypad(stdscr,TRUE);
+  printf("Press F12 to exit.\n");
 
   int c;
   while (1){
