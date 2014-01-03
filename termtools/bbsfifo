@@ -31,7 +31,8 @@ anti_idle(){
 trap 'clean_up' 1 2 3 6 9 15
 while true
 do
-	sleep 120
+    sleep 120
     anti_idle
 done
+
 
