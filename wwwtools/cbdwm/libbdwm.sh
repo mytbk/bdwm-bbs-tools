@@ -18,3 +18,11 @@ bbs_modsmd(){
     curl --data-urlencode "plan=${mysmd}" -b "${cookiefile}" "http://www.bdwm.net/bbs/bbsplan2.php"
 }
 
+bbs_modsign(){
+    # usage: bbs_modsign user [file]
+    local cookiefile="/tmp/cookie.$1"
+    shift
+    local mysign="$(iconv -c -t gbk $@)"
+    curl --data-urlencode "plan=${mysign}" -d "btn_bbssign=$(printf '\xc8\xb7\xb6\xa8')" \
+        -b "${cookiefile}" "http://www.bdwm.net/bbs/bbssign.php"
+}
