@@ -15,7 +15,10 @@ bbs_modsmd(){
     local cookiefile="/tmp/cookie.$1"
     shift
     local mysmd="$(iconv -c -t gbk $@)"
-    curl --data-urlencode "plan=${mysmd}" -b "${cookiefile}" "http://www.bdwm.net/bbs/bbsplan2.php"
+    curl --data-urlencode "plan=${mysmd}" \
+        -b "${cookiefile}" \
+        -H 'Expect:' \
+        "http://www.bdwm.net/bbs/bbsplan2.php"
 }
 
 bbs_modsign(){
