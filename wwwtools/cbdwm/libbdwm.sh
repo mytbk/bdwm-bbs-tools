@@ -1,6 +1,7 @@
 bbs_login(){
     # usage: bbs_login user pass
-    curl -c "/tmp/cookie.$1" "https://www.bdwm.net/bbs/bbsauth.php?userid=$1&passwd=$2"
+    curl -c "/tmp/cookie.$1" "https://www.bdwm.net/bbs/bbsauth.php?userid=$1&passwd=$2" | grep -q \
+	'\"result\":0'
 }
 
 bbs_logout(){
