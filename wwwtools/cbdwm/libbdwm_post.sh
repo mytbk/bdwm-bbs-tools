@@ -25,6 +25,5 @@ bbs_newpost(){
         -d 'noreply=N' -d "id=${USER}" \
         -d "board=${BOARD}" \
         --data-urlencode "text=${CONTENT}" \
-        --data-urlencode "code=$(getcode)" \
             "https://www.bdwm.net/bbs/bbssnd.php"
 }
