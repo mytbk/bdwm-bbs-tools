@@ -27,3 +27,25 @@ bbs_newpost(){
         --data-urlencode "text=${CONTENT}" \
             "https://www.bdwm.net/bbs/bbssnd.php"
 }
+
+bbs_post(){
+    # usage: bbs_post <user> <board> <title> <tid> <pid> [filef]
+    local USER="$1"
+    local BOARD="$2"
+    local TITLE=`convcode <<< "$3"`
+    local TID="$4"
+    local PID="$5"
+    shift 5
+    local CONTENT="$(convcode $@)"
+    curl -b "/tmp/cookie.${USER}" \
+        -H 'Expect:' \
+        -d "board=${BOARD}" \
+        -d "threadid=${TID}" -d "postid=${PID}" \
+        -d "id=${USER}" \
+        --data-urlencode "title=${TITLE}" \
+        --data-urlencode "title_exp=${TITLE}" \
+        -d 'signature=0' -d 'notice_author=0' \
+        -d 'noreply=N' -d "id=${USER}" \
+        --data-urlencode "text=${CONTENT}" \
+            "http://www.bdwm.net/bbs/bbssnd.php"
+}
